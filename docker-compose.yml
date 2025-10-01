@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  server:
+    build: .
+    command: ["python", "server.py"]
+    ports:
+      - "8000:8000"
+
+  app:
+    build: .
+    command: ["python", "main.py"]
+    environment:
+      MCP_SERVER_URL: http://server:8000/mcp
+      START_LOCAL_SERVER: "0"
+    depends_on:
+      - server
